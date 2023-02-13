@@ -12,11 +12,24 @@
 
 <body>
 
-    <form>
+    <h2>Connexion/Inscription</h2>
+    <label class="switch">
+        <input type="checkbox" id="switch-login-signup-input">
+        <span class="slider"></span>
+    </label>
+
+    <form id="signup-form">
         <h2>Inscription</h2>
-        <input type="email" id="email-input" placeholder="Email">
-        <input type="password" id="pwd-input" placeholder="Mot de passe">
+        <input type="email" id="signup-email-input" placeholder="Email">
+        <input type="password" id="signup-pwd-input" placeholder="Mot de passe">
         <input type="submit" value="Inscription">
+    </form>
+
+    <form id="login-form">
+        <h2>Connexion</h2>
+        <input type="email" id="login-email-input" placeholder="Email">
+        <input type="password" id="login-pwd-input" placeholder="Mot de passe">
+        <input type="submit" value="Connexion">
     </form>
 
     <script type="module" src="./js/index.js"></script>
