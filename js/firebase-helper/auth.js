@@ -14,9 +14,19 @@ export const signUp = (email, pwd) => {
             });
         })
         .catch(error => {
+            let frenchMessage;
+            switch (error.code) {
+                case "auth/invalid-email":
+                frenchMessage = "Adresse mail mal formatée";break;
+                case "auth/weak-password":
+                frenchMessage = "Votre mot de passe doit contenir minimum 6 caractères";break;
+                case "auth/email-already-in-use" :
+                frenchMessage = "Cette adresse mail est déjà utilisée";break;
+                default: frenchMessage = "Une erreur inconnue est survenue ! Code de l'erreur : " + error.code;
+            }
             resolve({
                 success: false,
-                error
+                error: {...error, frenchMessage}
             });
         });
     }); 
@@ -34,9 +44,18 @@ export const login = (email, pwd) => {
             });
         })
         .catch(error => {
+            let frenchMessage;
+            switch (error.code) {
+                case "auth/user-not-found":
+                frenchMessage = "Mot de passe et/ou adresse mail non reconnu.e.s";break;
+                case "auth/wrong-password":
+                case "auth/wrong-email":
+                frenchMessage = "Mot de passe et/ou adresse mail non reconnu.e.s";break;
+                default: frenchMessage = "Une erreur inconnue est survenue ! Code de l'erreur : " + error.code;
+            }
             resolve({
                 success: false,
-                error
+                error: {...error, frenchMessage}
             });
         });
     }); 

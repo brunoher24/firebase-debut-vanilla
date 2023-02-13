@@ -1,11 +1,14 @@
 import _ from "./firebase-helper/init.js";
 import { signUp, login } from "./firebase-helper/auth.js";
-
+import Toast from "./services/MyToast.js";
 
 
 function QS(selector) {
     return document.querySelector(selector);
 }
+
+const toast = new Toast();
+
 const loginFormElt = QS("#login-form");
 const loginEmailInputElt = QS("#login-email-input");
 const loginPwdInputElt = QS("#login-pwd-input");
@@ -38,6 +41,9 @@ signupFormElt.addEventListener("submit", e => {
     e.preventDefault();
     signUp(signupEmailInputElt.value, signupPwdInputElt.value).then(result => {
         console.log(result);
+        if(result.error) {
+            toast.open(result.error.frenchMessage);
+        }
     });
 });
 
@@ -45,6 +51,9 @@ loginFormElt.addEventListener("submit", e => {
     e.preventDefault();
     login(loginEmailInputElt.value, loginPwdInputElt.value).then(result => {
         console.log(result);
+        if(result.error) {
+            toast.open(result.error.frenchMessage);
+        }
     });
 });
 
