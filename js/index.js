@@ -8,13 +8,17 @@ function QS(selector) {
 
 const toast = new Toast();
 
-const loginFormElt = QS("#login-form");
-const loginEmailInputElt = QS("#login-email-input");
-const loginPwdInputElt = QS("#login-pwd-input");
+const loginFormElt          = QS("#login-form");
+const loginEmailInputElt    = QS("#login-email-input");
+const loginPwdInputElt      = QS("#login-pwd-input");
 
-const signupFormElt = QS("#signup-form");
-const signupEmailInputElt = QS("#signup-email-input");
-const signupPwdInputElt = QS("#signup-pwd-input");
+const signupFormElt         = QS("#signup-form");
+const signupEmailInputElt   = QS("#signup-email-input");
+const signupPwdInputElt     = QS("#signup-pwd-input");
+const firstnameInputElt     = QS("#signup-firstname-input");
+const lastnameInputElt      = QS("#signup-lastname-input");
+const nicknameInputElt      = QS("#signup-username-input");
+
 signupFormElt.style.display = "none";
 
 QS("#switch-login-signup-input").addEventListener("change", e => {
@@ -26,7 +30,6 @@ QS("#switch-login-signup-input").addEventListener("change", e => {
         signupFormElt.style.display = "none";
     }
 });
-
 
 // syntaxe async / await
 // QS("form").addEventListener("submit", async e => {
