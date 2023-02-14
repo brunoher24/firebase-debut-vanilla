@@ -47,7 +47,6 @@ export const login = (email, pwd) => {
             let frenchMessage;
             switch (error.code) {
                 case "auth/user-not-found":
-                frenchMessage = "Mot de passe et/ou adresse mail non reconnu.e.s";break;
                 case "auth/wrong-password":
                 case "auth/wrong-email":
                 frenchMessage = "Mot de passe et/ou adresse mail non reconnu.e.s";break;

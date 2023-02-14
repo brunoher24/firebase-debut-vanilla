@@ -1,7 +1,6 @@
-import _ from "./firebase-helper/init.js";
+import fbApp, {database} from "./firebase-helper/init.js";
 import { signUp, login } from "./firebase-helper/auth.js";
 import Toast from "./services/MyToast.js";
-
 
 function QS(selector) {
     return document.querySelector(selector);
@@ -40,7 +39,6 @@ QS("#switch-login-signup-input").addEventListener("change", e => {
 signupFormElt.addEventListener("submit", e => {
     e.preventDefault();
     signUp(signupEmailInputElt.value, signupPwdInputElt.value).then(result => {
-        console.log(result);
         if(result.error) {
             toast.open(result.error.frenchMessage);
         }
@@ -50,7 +48,6 @@ signupFormElt.addEventListener("submit", e => {
 loginFormElt.addEventListener("submit", e => {
     e.preventDefault();
     login(loginEmailInputElt.value, loginPwdInputElt.value).then(result => {
-        console.log(result);
         if(result.error) {
             toast.open(result.error.frenchMessage);
         }
