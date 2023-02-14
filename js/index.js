@@ -1,4 +1,5 @@
-import fbApp, {database} from "./firebase-helper/init.js";
+import _ from "./firebase-helper/init.js";
+import databaseService from "./firebase-helper/database.js";
 import { signUp, login } from "./firebase-helper/auth.js";
 import Toast from "./services/MyToast.js";
 
@@ -17,7 +18,7 @@ const signupEmailInputElt   = QS("#signup-email-input");
 const signupPwdInputElt     = QS("#signup-pwd-input");
 const firstnameInputElt     = QS("#signup-firstname-input");
 const lastnameInputElt      = QS("#signup-lastname-input");
-const nicknameInputElt      = QS("#signup-username-input");
+const usernameInputElt      = QS("#signup-username-input");
 
 signupFormElt.style.display = "none";
 
@@ -44,6 +45,15 @@ signupFormElt.addEventListener("submit", e => {
     signUp(signupEmailInputElt.value, signupPwdInputElt.value).then(result => {
         if(result.error) {
             toast.open(result.error.frenchMessage);
+        } else {
+            const uid = result.data.uid;
+            databaseService.writeData(`users/${uid}`, {
+                firstname: firstnameInputElt.value, 
+                lastname: lastnameInputElt.value, 
+                username: usernameInputElt.value,
+                registerDate: Date.now(),
+                uid: uid
+            });
         }
     });
 });
