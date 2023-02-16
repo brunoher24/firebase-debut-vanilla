@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 import { firebaseConfig } from "../global.js";
 
 
@@ -12,8 +11,5 @@ import { firebaseConfig } from "../global.js";
 
 // Initialize Firebase
 const fbApp = initializeApp(firebaseConfig);
-
-// Initialize Realtime Database and get a reference to the service
-export const database = getDatabase(fbApp);
 
 export default fbApp;

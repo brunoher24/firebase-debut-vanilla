@@ -1,4 +1,6 @@
 import _ from "./firebase-helper/init.js";
+
+import { storageRef } from "./firebase-helper/storage.js";
 import databaseService from "./firebase-helper/database.js";
 import { signUp, login } from "./firebase-helper/auth.js";
 import Toast from "./services/MyToast.js";
