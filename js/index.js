@@ -9,23 +9,41 @@ function QS(selector) {
     return document.querySelector(selector);
 }
 
+function READ_IMAGE_FILE_AS_DATA_URL(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.addEventListener("load", () => {
+            resolve(reader.result);
+        });
+    })
+
+}
+
 const toast = new Toast();
 
-const loginFormElt          = QS("#login-form");
-const loginEmailInputElt    = QS("#login-email-input");
-const loginPwdInputElt      = QS("#login-pwd-input");
+const loginFormElt = QS("#login-form");
+const loginEmailInputElt = QS("#login-email-input");
+const loginPwdInputElt = QS("#login-pwd-input");
 
-const signupFormElt         = QS("#signup-form");
-const signupEmailInputElt   = QS("#signup-email-input");
-const signupPwdInputElt     = QS("#signup-pwd-input");
-const firstnameInputElt     = QS("#signup-firstname-input");
-const lastnameInputElt      = QS("#signup-lastname-input");
-const usernameInputElt      = QS("#signup-username-input");
+const signupFormElt = QS("#signup-form");
+const signupEmailInputElt = QS("#signup-email-input");
+const signupPwdInputElt = QS("#signup-pwd-input");
+const firstnameInputElt = QS("#signup-firstname-input");
+const lastnameInputElt = QS("#signup-lastname-input");
+const usernameInputElt = QS("#signup-username-input");
+const imageInputElt = QS("#signup-image-input");
+const imagePreviewElt = QS("#signup-image-preview");
 
+imageInputElt.addEventListener("change", async e => {
+    const base64Url = await READ_IMAGE_FILE_AS_DATA_URL(e.target.files[0]);
+    imagePreviewElt.src = base64Url
+})
 signupFormElt.style.display = "none";
 
 QS("#switch-login-signup-input").addEventListener("change", e => {
-    if(e.target.checked) {
+    if (e.target.checked) {
         signupFormElt.style.display = "flex";
         loginFormElt.style.display = "none";
     } else {
@@ -45,13 +63,13 @@ QS("#switch-login-signup-input").addEventListener("change", e => {
 signupFormElt.addEventListener("submit", e => {
     e.preventDefault();
     signUp(signupEmailInputElt.value, signupPwdInputElt.value).then(result => {
-        if(result.error) {
+        if (result.error) {
             toast.open(result.error.frenchMessage);
         } else {
             const uid = result.data.uid;
             databaseService.writeData(`users/${uid}`, {
-                firstname: firstnameInputElt.value, 
-                lastname: lastnameInputElt.value, 
+                firstname: firstnameInputElt.value,
+                lastname: lastnameInputElt.value,
                 username: usernameInputElt.value,
                 registerDate: Date.now(),
                 uid: uid
@@ -63,7 +81,7 @@ signupFormElt.addEventListener("submit", e => {
 loginFormElt.addEventListener("submit", e => {
     e.preventDefault();
     login(loginEmailInputElt.value, loginPwdInputElt.value).then(result => {
-        if(result.error) {
+        if (result.error) {
             toast.open(result.error.frenchMessage);
         }
     });
