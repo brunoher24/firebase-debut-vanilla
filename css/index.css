@@ -6,9 +6,13 @@ body {
     background-color: #e4dada;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-height: 99vh;
+}
+
+h1 > i {
+  padding: 0 30px;
+  font-size: 15px;
 }
 
 form {
@@ -54,6 +58,7 @@ form > input[type="submit"] {
     display: inline-block;
     width: 60px;
     height: 34px;
+    margin-top: 40px;
   }
   
   .switch input { 

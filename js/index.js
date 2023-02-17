@@ -1,6 +1,6 @@
 import _ from "./firebase-helper/init.js";
 
-import { storageRef } from "./firebase-helper/storage.js";
+import storageService from "./firebase-helper/storage.js";
 import databaseService from "./firebase-helper/database.js";
 import { signUp, login } from "./firebase-helper/auth.js";
 import Toast from "./services/MyToast.js";
@@ -35,9 +35,11 @@ const lastnameInputElt = QS("#signup-lastname-input");
 const usernameInputElt = QS("#signup-username-input");
 const imageInputElt = QS("#signup-image-input");
 const imagePreviewElt = QS("#signup-image-preview");
+let imageFileToUpload;
 
 imageInputElt.addEventListener("change", async e => {
-    const base64Url = await READ_IMAGE_FILE_AS_DATA_URL(e.target.files[0]);
+    imageFileToUpload = e.target.files[0];
+    const base64Url = await READ_IMAGE_FILE_AS_DATA_URL(imageFileToUpload);
     imagePreviewElt.src = base64Url
 })
 signupFormElt.style.display = "none";
@@ -67,13 +69,17 @@ signupFormElt.addEventListener("submit", e => {
             toast.open(result.error.frenchMessage);
         } else {
             const uid = result.data.uid;
-            databaseService.writeData(`users/${uid}`, {
+            const userPath = `users/${uid}`;
+            const user = {
                 firstname: firstnameInputElt.value,
                 lastname: lastnameInputElt.value,
                 username: usernameInputElt.value,
                 registerDate: Date.now(),
-                uid: uid
-            });
+                uid: uid,
+                imageUrl: userPath
+            };
+            databaseService.writeData(userPath, user);
+            storageService.uploadFile(userPath, imageFileToUpload);
         }
     });
 });

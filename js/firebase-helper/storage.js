@@ -1,9 +1,30 @@
-import { getStorage, ref } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
+import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-storage.js";
 
 // Get a reference to the storage service, which is used to create references in your storage bucket
 const storage = getStorage();
 
-// Create a storage reference from our storage service
-export const storageRef = ref(storage);
+const storageService = {
+    uploadFile(path, file) {
+        return new Promise((resolve) => {
+            const storageRef = ref(storage, path);
+            // 'file' comes from the Blob or File API
+            uploadBytes(storageRef, file)
+            .then((snapshot) => {
+              console.log('Uploaded a blob or file!');
+                resolve({
+                    success: true,
+                    data: snapshot
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                resolve({success: false, error: error});
+            })
+        });
+    }
+};
 
-console.log(storageRef);
+
+
+
+export default storageService;
