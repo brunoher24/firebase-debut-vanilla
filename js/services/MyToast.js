@@ -1,5 +1,5 @@
 class Toast {
-    constructor(closingDelay = 4000) {
+    constructor(closingDelay = 6000) {
         this.elt = null;
         this.closingDelay = closingDelay;
     }

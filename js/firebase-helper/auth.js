@@ -1,9 +1,14 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword }
-    from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import 
+{ getAuth, setPersistence, browserSessionPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} 
+from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
 const auth = getAuth();
 
 const authService = {
+    getCurrentAuthState(callback) {
+        onAuthStateChanged(auth, callback);
+    },
+
     signUp(email, pwd) {
         return new Promise(resolve => {
             createUserWithEmailAndPassword(auth, email, pwd)
@@ -36,7 +41,9 @@ const authService = {
 
     login(email, pwd) {
         return new Promise(resolve => {
-            signInWithEmailAndPassword(auth, email, pwd)
+            setPersistence(auth, browserSessionPersistence)
+            .then(() => {
+                return signInWithEmailAndPassword(auth, email, pwd)
                 .then(userCredential => {
                     // Signed in 
                     const user = userCredential.user;
@@ -59,8 +66,14 @@ const authService = {
                         error: { ...error, frenchMessage }
                     });
                 });
-        })
-
+            })
+            .catch((error) => {
+                resolve({
+                    success: false,
+                    error
+                });
+            });
+        });
     }
 }
 

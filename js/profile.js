@@ -6,24 +6,7 @@ import authService from "./firebase-helper/auth.js";
 import Toast from "./services/MyToast.js";
 import { LOCAL_STORAGE_NAME } from "./global.js";
 
-
-function QS(selector) {
-    return document.querySelector(selector);
-}
-
-function READ_IMAGE_FILE_AS_DATA_URL(file) {
-    return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-
-        reader.addEventListener("load", () => {
-            resolve(reader.result);
-        });
-    })
-}
-
 const toast = new Toast();
-
 const profileFormElt = QS("form");
 const emailInputElt = QS("#email-input");
 const newPwdInputElt = QS("#new-pwd-input");
@@ -37,7 +20,32 @@ let imageFileToUpload, userEmail;
 const authInfos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME));
 
 
+function QS(selector) {
+    return document.querySelector(selector);
+}
 
+function READ_IMAGE_FILE_AS_DATA_URL(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.addEventListener("load", () => {
+            resolve(reader.result);
+        });
+    });
+}
+
+function getUserEmail(user) {
+    if(user) {
+        emailInputElt.value = user.email;
+        userEmail = user.email;
+    } else {
+        toast.open("Récupération de l'adresse mail impossible. Verifiez que vous êtes bien connecté.e.");
+    }
+    
+}
+
+authService.getCurrentAuthState(getUserEmail);
 
 databaseService.readData("users/" + authInfos.uid, (userInfos) => {
     console.log(userInfos);

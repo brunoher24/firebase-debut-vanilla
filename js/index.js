@@ -39,9 +39,6 @@ const imageInputElt = QS("#signup-image-input");
 const imagePreviewElt = QS("#signup-image-preview");
 let imageFileToUpload;
 
-authService.getCurrentAuthState();
-
-
 imageInputElt.addEventListener("change", async e => {
     imageFileToUpload = e.target.files[0];
     const base64Url = await READ_IMAGE_FILE_AS_DATA_URL(imageFileToUpload);
@@ -101,7 +98,7 @@ loginFormElt.addEventListener("submit", e => {
             };
 
             localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(toStore));
-            // document.location.href = "./profile.html";
+            document.location.href = "./profile.html";
         }
     });
 });
