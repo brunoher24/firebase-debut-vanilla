@@ -1,0 +1,137 @@
+header {
+  height: 350px;
+}
+
+/* #inner-1 {
+  transform: rotate(-20deg);
+  background: linear-gradient(#F58523, #FFCB33);
+  width: 700px;
+  height: 450px;
+  top: -240px;
+  left: -64px;
+  position: absolute;
+  border-radius: 46px;
+
+} */
+
+#inner-1 {
+  transform: rotate(0);
+  background: linear-gradient(25deg, #F58523, #FFCB33);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  border-radius: 0;
+}
+
+#outer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+}
+
+
+header>img {
+  z-index: 1;
+  background-color: white;
+  box-shadow: 1px 1px 4px silver;
+  margin: 0 auto;
+}
+
+header>input[type="file"] {
+  z-index: 2;
+  opacity: 0;
+  margin: -120px auto 0 auto;
+}
+
+header>img, header>input[type="file"] {
+  position: relative;
+  display: block;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+}
+
+.profile-form-field {
+  margin: 20px 10%;
+  border-bottom: 1px solid silver;
+  padding-bottom: 20px;
+}
+ 
+.profile-form-field:last-child {
+  border-bottom: none;
+} 
+
+.profile-form-field > label, .profile-form-field > input {
+  color: grey;
+  display: block;
+}
+
+.profile-form-field > label {
+  font-size: 14px;
+}
+
+.profile-form-field > input {
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+form > input[type="submit"] {
+  display: block;
+  border: none;
+  background: linear-gradient(25deg, #F58523, #FFCB33);
+  color: white;
+  height: 30px;
+  margin: 10px auto;
+  width: 80%;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px silver;  
+}
+
+
+@media all and (min-width: 576px) {
+
+  #inner-1 {
+    transform: rotate(0);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    border-radius: 0;
+  }
+
+  #outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    box-shadow: 1px 1px 4px silver;
+  }
+
+  header>img {
+    display: block;
+    margin: 150px auto 0 auto;
+    width: 180px;
+    height: 180px;
+  }
+
+  header>input[type="file"] {
+    position: relative;
+    display: block;
+    margin: -180px auto 0 auto;
+    width: 180px;
+    height: 180px;
+  }
+}

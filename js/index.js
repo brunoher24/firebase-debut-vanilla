@@ -2,8 +2,10 @@ import _ from "./firebase-helper/init.js";
 
 import storageService from "./firebase-helper/storage.js";
 import databaseService from "./firebase-helper/database.js";
-import { signUp, login } from "./firebase-helper/auth.js";
+import authService from "./firebase-helper/auth.js";
 import Toast from "./services/MyToast.js";
+import { LOCAL_STORAGE_NAME } from "./global.js";
+
 
 function QS(selector) {
     return document.querySelector(selector);
@@ -37,6 +39,9 @@ const imageInputElt = QS("#signup-image-input");
 const imagePreviewElt = QS("#signup-image-preview");
 let imageFileToUpload;
 
+authService.getCurrentAuthState();
+
+
 imageInputElt.addEventListener("change", async e => {
     imageFileToUpload = e.target.files[0];
     const base64Url = await READ_IMAGE_FILE_AS_DATA_URL(imageFileToUpload);
@@ -57,14 +62,14 @@ QS("#switch-login-signup-input").addEventListener("change", e => {
 // syntaxe async / await
 // QS("form").addEventListener("submit", async e => {
 //     e.preventDefault();
-//     const result = await signUp(emailInputElt.value, pwdInputElt.value);
+//     const result = await authService.signUp(emailInputElt.value, pwdInputElt.value);
 //     console.log(result);
 // });
 
 // syntaxe .then().catch()
 signupFormElt.addEventListener("submit", e => {
     e.preventDefault();
-    signUp(signupEmailInputElt.value, signupPwdInputElt.value).then(result => {
+    authService.signUp(signupEmailInputElt.value, signupPwdInputElt.value).then(result => {
         if (result.error) {
             toast.open(result.error.frenchMessage);
         } else {
@@ -86,9 +91,17 @@ signupFormElt.addEventListener("submit", e => {
 
 loginFormElt.addEventListener("submit", e => {
     e.preventDefault();
-    login(loginEmailInputElt.value, loginPwdInputElt.value).then(result => {
+    authService.login(loginEmailInputElt.value, loginPwdInputElt.value).then(result => {
         if (result.error) {
             toast.open(result.error.frenchMessage);
+        } else {
+            const toStore = {
+                accessToken: result.data.accessToken,
+                uid: result.data.uid
+            };
+
+            localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(toStore));
+            // document.location.href = "./profile.html";
         }
     });
 });

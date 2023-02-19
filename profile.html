@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon profile</title>
+    <link rel="stylesheet" href="./css/profile.css">
+</head>
+<body>
+    <header>
+        <div id="player">
+            <div id="outer">
+              <div id="inner-1"></div>
+              <div id="inner-2"></div>
+            </div>
+        </div>
+        <img id="img-preview" src="./assets/no-pic.png" alt="">
+        <input type="file" accept="image/jpeg, image/jpg, image/png" id="change-image-file-input">
+    </header>
+
+    <form>
+        <div class="profile-form-field">
+            <label for="email-input">Adresse mail</label>
+            <input type="email" id="email-input">
+        </div>
+        <div class="profile-form-field">
+            <label for="lastname-input">Nom</label>
+            <input type="email" id="lastname-input">
+        </div>
+        <div class="profile-form-field">
+            <label for="firstname-input">Prénom</label>
+            <input type="email" id="firstname-input">
+        </div>
+        <div class="profile-form-field">
+            <label for="username-input">Nom d'utilisateur</label>
+            <input type="email" id="username-input">
+        </div>
+        <div class="profile-form-field">
+            <label for="new-pwd-input">Nouveau mot de passe</label>
+            <input type="password" id="new-pwd-input">
+        </div>
+        <input type="submit" value="Valider le(s) changement(s)">
+    </form>
+   <script src="./js/profile.js" type="module"></script>
+</body>
+</html>
