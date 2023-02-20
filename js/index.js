@@ -103,4 +103,13 @@ loginFormElt.addEventListener("submit", e => {
     });
 });
 
-
+if(new URLSearchParams(window.location.search).get("emailModifie")) {
+    authService.signOut().then(result => {
+        if(result.error) {
+            toast.open("Une erreur est survenue lors de la déconnexion");
+        } else {
+            toast.open("Adresse mail modifiée. Vous êtes à présent déconnecté.e");
+        }
+        
+    })
+}

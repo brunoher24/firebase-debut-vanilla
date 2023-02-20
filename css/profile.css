@@ -1,5 +1,14 @@
 header {
-  height: 350px;
+  height: 175px;
+}
+header a {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+  z-index: 2;
 }
 
 /* #inner-1 {
@@ -57,6 +66,11 @@ header>img, header>input[type="file"] {
   cursor: pointer;
 }
 
+#profile-forms-ctnr {
+  position: relative;
+  overflow: hidden;
+}
+
 .profile-form-field {
   margin: 20px 10%;
   border-bottom: 1px solid silver;
@@ -76,7 +90,7 @@ header>img, header>input[type="file"] {
   font-size: 14px;
 }
 
-.profile-form-field > input {
+.profile-form-field > input, #re-authenticate-form-prompt input {
   width: 100%;
   margin-top: 20px;
   border: none;
@@ -97,6 +111,59 @@ form > input[type="submit"] {
   box-shadow: 1px 1px 4px silver;  
 }
 
+#re-authenticate-form-prompt {
+  background-color: #f9f5f5;
+  width: 98%;
+  left: 1%;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(300px);
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#re-authenticate-form-prompt > #current-password {
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  outline: none;
+  height: 30px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: lighter;
+}
+
+.appear-bottom {
+  animation: appear-bottom 1s forwards;
+}
+
+.disappear-bottom {
+  animation: disappear-bottom 1s forwards;
+}
+
+@keyframes appear-bottom {
+  from {
+    transform: translateY(300px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes disappear-bottom {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(300px);
+  }
+}
 
 @media all and (min-width: 576px) {
 
@@ -133,5 +200,10 @@ form > input[type="submit"] {
     margin: -180px auto 0 auto;
     width: 180px;
     height: 180px;
+  }
+
+  #re-authenticate-form-prompt {
+    width: 560px;
+    left: calc(50% - 280px);
   }
 }

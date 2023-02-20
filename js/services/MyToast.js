@@ -2,6 +2,7 @@ class Toast {
     constructor(closingDelay = 6000) {
         this.elt = null;
         this.closingDelay = closingDelay;
+        this.isShowing = false;
     }
 
     init() {
@@ -14,11 +15,18 @@ class Toast {
         if(!this.elt) {
             this.init();
         }
-        this.elt.innerText = msg;
+        if(this.isShowing){
+            this.elt.innerText += '\n' + msg; 
+        } else {
+            this.elt.innerText = msg;
+        }
+       
 
         this.elt.className = "my-toast-ctnr my-toast-down-appear";
+        this.isShowing = true;
         setTimeout(() => {
             this.elt.className = "my-toast-ctnr my-toast-down-disappear";
+            this.isShowing = false;
         }, this.closingDelay);
     }
 }
